@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">the-dog-app</string>
+    <string name="invalid_username">Email is not valid</string>
+    <string name="prompt_email">Email</string>
+    <string name="action_sign_in">GO</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="generic_error">"An error occurred"</string>
+    <string name="breed_husky">husky</string>
+    <string name="breed_hound">hound</string>
+    <string name="breed_pug">pug</string>
+    <string name="breed_labrador">labrador</string>
+    <string name="title_dog_breed_activity">Choose your breed :)</string>
+</resources>
