@@ -3,8 +3,9 @@
     <string name="invalid_username">Email is not valid</string>
     <string name="prompt_email">Email</string>
     <string name="action_sign_in">GO</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">"Try another email or try again later"</string>
     <string name="generic_error">"An error occurred"</string>
+    <string name="network_error">"You need a valid connection :("</string>
     <string name="breed_husky">husky</string>
     <string name="breed_hound">hound</string>
     <string name="breed_pug">pug</string>
