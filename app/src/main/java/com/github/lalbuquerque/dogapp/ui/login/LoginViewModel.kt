@@ -66,6 +66,10 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
             )
     }
 
+    fun logout() {
+        // TODO: implement
+    }
+
     private fun isEmailValid(email: String): Boolean {
         return if (email.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(email).matches()

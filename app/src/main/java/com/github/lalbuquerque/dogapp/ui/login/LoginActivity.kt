@@ -20,9 +20,13 @@ class LoginActivity : AppCompatActivity() {
     @Inject
     lateinit var loginViewModel: LoginViewModel
 
+    var didLogout = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        didLogout = intent.getBooleanExtra(EXTRA_LOGOUT, false)
 
         DogApplication.component?.inject(this)
     }
@@ -36,6 +40,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setUpLiveDataObservers() {
         loginViewModel.loginStatusLiveData.observe(this@LoginActivity, Observer {
+            if (didLogout) {
+                didLogout = false
+                return@Observer
+            }
+
             if (it.loggedIn) {
                 goToDogsActivity()
             }
@@ -91,4 +100,6 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_LONG).show()
     }
+
+    companion object { const val EXTRA_LOGOUT = "logout" }
 }

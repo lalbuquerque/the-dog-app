@@ -1,5 +1,6 @@
 package com.github.lalbuquerque.dogapp.ui.dogfeed
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,9 @@ import com.github.lalbuquerque.dogapp.DogApplication
 import com.github.lalbuquerque.dogapp.R
 import com.github.lalbuquerque.dogapp.extensions.enableAndSelectable
 import com.github.lalbuquerque.dogapp.ui.dogfeed.recyclerview.DogFeedAdapter
+import com.github.lalbuquerque.dogapp.ui.login.LoginActivity
 import com.robertlevonyan.views.chip.OnSelectClickListener
+import kotlinx.android.synthetic.main.activity_dogs.*
 import kotlinx.android.synthetic.main.content_dogs_activity.*
 import kotlinx.android.synthetic.main.dog_list_layout.*
 import javax.inject.Inject
@@ -111,6 +114,20 @@ class DogFeedActivity : AppCompatActivity() {
         tagHound.onSelectClickListener = onSelectClickListenerFor(DogCategory.HOUND)
         tagPug.onSelectClickListener = onSelectClickListenerFor(DogCategory.PUG)
         tagLabrador.onSelectClickListener = onSelectClickListenerFor(DogCategory.LABRADOR)
+
+        topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.btnLogout -> {
+                    val goToLoginActivity = Intent(this@DogFeedActivity,
+                        LoginActivity::class.java)
+                    goToLoginActivity.putExtra(LoginActivity.EXTRA_LOGOUT,true)
+                    startActivity(goToLoginActivity)
+                    finish()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun onSelectClickListenerFor(category: DogCategory): OnSelectClickListener {

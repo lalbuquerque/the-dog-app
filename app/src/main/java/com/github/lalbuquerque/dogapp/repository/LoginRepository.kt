@@ -39,4 +39,8 @@ class LoginRepository @Inject constructor(private val dogApi: DogApi,
             }
         }
     }
+
+    fun logout() {
+        // TODO: implement
+    }
 }
