@@ -12,6 +12,6 @@
     <string name="breed_pug">pug</string>
     <string name="breed_labrador">labrador</string>
     <string name="logout">Logout</string>
-    <string name="title_dog_breed_activity">Choose your breed :)</string>
+    <string name="title_dog_breed_activity">Choose your breed</string>
     <string name="title_login_activity">The Dog App :)</string>
 </resources>
