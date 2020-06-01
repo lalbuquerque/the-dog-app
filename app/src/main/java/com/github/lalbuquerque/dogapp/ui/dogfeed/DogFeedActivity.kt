@@ -83,6 +83,8 @@ class DogFeedActivity : AppCompatActivity() {
             if (it.success) {
                 deselectOtherCategoriesThan(it.category ?: DogCategory.ALL)
             } else {
+                stopShimmerAnimation()
+                rvDogImages.visibility = View.GONE
                 handleCategorySelectionError(it.error, it.category)
             }
         })
@@ -107,6 +109,7 @@ class DogFeedActivity : AppCompatActivity() {
         shimmerContainer.startShimmerAnimation()
         shimmerContainer.visibility = View.VISIBLE
         rvDogImages.visibility = View.INVISIBLE
+        tvDogImagesLoadingError.visibility = View.INVISIBLE
     }
 
     private fun setUpListeners() {
@@ -177,7 +180,9 @@ class DogFeedActivity : AppCompatActivity() {
     }
 
     private fun handleCategorySelectionError(error: Int?, category: DogCategory?) {
-        //TODO: handle error
+        tvDogImagesLoadingError.text = getString(error ?: R.string.generic_error)
+        tvDogImagesLoadingError.visibility = View.VISIBLE
+
         deselectOtherCategoriesThan(category ?: DogCategory.ALL)
     }
 }

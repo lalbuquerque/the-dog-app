@@ -9,10 +9,9 @@ import com.github.lalbuquerque.dogapp.repository.LoginRepository
 import com.github.lalbuquerque.dogapp.R
 import com.github.lalbuquerque.dogapp.di.qualifiers.ObserveOn
 import com.github.lalbuquerque.dogapp.di.qualifiers.SubscribeOn
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.schedulers.Schedulers
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
@@ -40,7 +39,7 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
     fun loginDataChanged(email: String) {
         if (!isEmailValid(email)) {
             _loginFormLiveData.value =
-                LoginFormState(emailError = R.string.invalid_username)
+                LoginFormState(emailError = R.string.invalid_email)
         } else {
             _loginFormLiveData.value =
                 LoginFormState(
@@ -59,11 +58,8 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
                     _loginResultLiveData.value = LoginResult(success = true)
                 },
                 onError = {
-                    val errorString =
-                        if (it is IOException) R.string.network_error else R.string.login_failed
-
                     _loginResultLiveData.value =
-                        LoginResult(error = errorString)
+                        LoginResult(error = getLoginErrorString(it))
                 },
                 onComplete = {}
             )
@@ -79,6 +75,15 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
             Patterns.EMAIL_ADDRESS.matcher(email).matches()
         } else {
             false
+        }
+    }
+
+    private fun getLoginErrorString(throwable: Throwable): Int {
+        return when (throwable) {
+            is IOException -> R.string.network_error
+            is HttpException ->
+                if (throwable.code() == 400) R.string.login_api_invalid_email else R.string.generic_error
+            else -> R.string.generic_error
         }
     }
 }

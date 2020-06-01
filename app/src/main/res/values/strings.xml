@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">the-dog-app</string>
-    <string name="invalid_username">Email is not valid</string>
-    <string name="prompt_email">Email</string>
+    <string name="app_name">The Dog App</string>
+    <string name="invalid_email">Email is not valid</string>
+    <string name="prompt_email">Type your email</string>
     <string name="action_sign_in">GO</string>
-    <string name="login_failed">"Try another email or try again later"</string>
-    <string name="generic_error">"An error occurred"</string>
+    <string name="login_api_invalid_email">"Please retry with a valid email"</string>
+    <string name="dog_images_loading_failed">"There was an error loading your dogs :("</string>
+    <string name="generic_error">"An error occurred :("</string>
     <string name="network_error">"You need a valid connection :("</string>
     <string name="breed_husky">husky</string>
     <string name="breed_hound">hound</string>

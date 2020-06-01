@@ -9,10 +9,9 @@ import com.github.lalbuquerque.dogapp.di.qualifiers.ObserveOn
 import com.github.lalbuquerque.dogapp.di.qualifiers.SubscribeOn
 import com.github.lalbuquerque.dogapp.repository.DogFeedRepository
 import com.github.lalbuquerque.dogapp.ui.dogfeed.recyclerview.DogItem
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.IOException
 import javax.inject.Inject
 
 class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFeedRepository,
@@ -50,7 +49,7 @@ class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFee
                 },
                 onError = {
                     _dogFeedRetrievalResultLiveData.value = DogFeedLoadResult(success = false,
-                        error = R.string.generic_error, category = category)
+                        error = getDogFeedErrorString(it), category = category)
                 },
                 onComplete = {}
             )
@@ -60,5 +59,12 @@ class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFee
         val newList = mutableListOf<DogItem>()
         dogImageList.forEach { newList.add(DogItem(it)) }
         return newList
+    }
+
+    private fun getDogFeedErrorString(throwable: Throwable): Int {
+        return when (throwable) {
+            is IOException -> R.string.network_error
+            else -> R.string.generic_error
+        }
     }
 }
