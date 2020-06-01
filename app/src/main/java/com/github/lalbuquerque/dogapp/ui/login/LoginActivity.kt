@@ -84,7 +84,6 @@ class LoginActivity : AppCompatActivity() {
 
     @Synchronized
     private fun goToDogsActivity() {
-        Toast.makeText(applicationContext, "GOING TO DOGS ACTIVITY", Toast.LENGTH_LONG).show()
         startActivity(Intent(this, DogFeedActivity::class.java))
         finish()
     }
