@@ -27,9 +27,8 @@ class DogFeedAdapter(var context: Context, private var dogList: List<DogItem>) :
 
         Glide.with(context)
             .load(dogImageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
-            .override(500, 500)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(viewHolder.imgDog);
 
         viewHolder.imgDog.setOnClickListener {
