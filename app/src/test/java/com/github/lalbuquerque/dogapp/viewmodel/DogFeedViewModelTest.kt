@@ -1,4 +1,4 @@
-package com.github.lalbuquerque.dogapp
+package com.github.lalbuquerque.dogapp.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.github.lalbuquerque.dogapp.api.vo.DogImage
