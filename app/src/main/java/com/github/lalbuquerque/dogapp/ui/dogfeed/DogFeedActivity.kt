@@ -72,12 +72,12 @@ class DogFeedActivity : AppCompatActivity() {
         dogFeedViewModel.dogCategorySelectionLiveData.observe(this@DogFeedActivity, Observer {
             startShimmerAnimation()
 
-            freezeOtherCategoriesThan(it.selected)
+            deselectOtherCategoriesThan(it.selected)
         })
 
         dogFeedViewModel.dogFeedLoadResultLiveData.observe(this@DogFeedActivity, Observer {
             if (it.success) {
-                onCategoryLoaded(it.category ?: DogCategory.ALL)
+                deselectOtherCategoriesThan(it.category ?: DogCategory.ALL)
             } else {
                 handleCategorySelectionError(it.error, it.category)
             }
@@ -136,7 +136,7 @@ class DogFeedActivity : AppCompatActivity() {
         lastFirstVisiblePositionTop = 0
     }
 
-    private fun freezeOtherCategoriesThan(category: DogCategory) {
+    private fun deselectOtherCategoriesThan(category: DogCategory) {
         if (category == DogCategory.ALL) {
             setAllCategoriesEnabled(allTagsUnselected = true)
             return
@@ -149,20 +149,6 @@ class DogFeedActivity : AppCompatActivity() {
         if (category != DogCategory.PUG) tagPug.chipSelected = false
         if (category != DogCategory.LABRADOR) tagLabrador.chipSelected = false
 
-    }
-
-    private fun onCategoryLoaded(category: DogCategory) {
-        if (category == DogCategory.ALL) {
-            setAllCategoriesEnabled(allTagsUnselected = true)
-            return
-        }
-
-        setAllCategoriesEnabled(allTagsUnselected = false)
-
-        if (category != DogCategory.HUSKY) tagHusky.chipSelected = false
-        if (category != DogCategory.HOUND) tagHound.chipSelected = false
-        if (category != DogCategory.PUG) tagPug.chipSelected = false
-        if (category != DogCategory.LABRADOR) tagLabrador.chipSelected = false
     }
 
     private fun setAllCategoriesEnabled(allTagsUnselected: Boolean) {
@@ -193,6 +179,6 @@ class DogFeedActivity : AppCompatActivity() {
 
     private fun handleCategorySelectionError(error: Int?, category: DogCategory?) {
         //TODO: handle error
-        onCategoryLoaded(category ?: DogCategory.ALL)
+        deselectOtherCategoriesThan(category ?: DogCategory.ALL)
     }
 }
