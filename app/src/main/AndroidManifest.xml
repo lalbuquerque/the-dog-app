@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.dogfeed.DogFeedActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_dog_breed_activity"/>
         <activity android:name=".ui.FullScreenImageActivity"
             android:parentActivityName=".ui.dogfeed.DogFeedActivity"

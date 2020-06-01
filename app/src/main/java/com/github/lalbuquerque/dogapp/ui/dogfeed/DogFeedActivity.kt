@@ -10,7 +10,7 @@ import com.github.lalbuquerque.dogapp.R
 import com.github.lalbuquerque.dogapp.extensions.enableAndSelectable
 import com.github.lalbuquerque.dogapp.ui.dogfeed.recyclerview.DogFeedAdapter
 import com.robertlevonyan.views.chip.OnSelectClickListener
-import kotlinx.android.synthetic.main.activity_dogs.*
+import kotlinx.android.synthetic.main.content_dogs_activity.*
 import kotlinx.android.synthetic.main.dog_list_layout.*
 import javax.inject.Inject
 

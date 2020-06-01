@@ -1,123 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_dogs_activity"
-    tools:context=".ui.dogfeed.DogFeedActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/tagsCardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:cardCornerRadius="4dp"
-        app:contentPadding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <HorizontalScrollView
-            android:id="@+id/svTabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/tagHusky"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/breed_husky"
-                    android:layout_margin="8dp"
-                    app:mcv_closable="false"
-                    app:mcv_selectable="true"
-                    app:mcv_cornerRadius="8dp"
-                    app:mcv_textColor="@color/colorPrimary"
-                    app:mcv_strokeSize="3dp"
-                    app:mcv_selectedTextColor="@android:color/white"
-                    app:mcv_selectedBackgroundColor="@color/colorPrimary"
-                    app:mcv_backgroundColor="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tagHound"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/tagHound"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/breed_hound"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tagHusky"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:mcv_backgroundColor="@android:color/transparent"
-                    app:mcv_closable="false"
-                    app:mcv_cornerRadius="8dp"
-                    app:mcv_selectable="true"
-                    app:mcv_selectedBackgroundColor="@color/colorPrimary"
-                    app:mcv_selectedTextColor="@android:color/white"
-                    app:mcv_strokeSize="3dp"
-                    app:mcv_textColor="@color/colorPrimary" />
-
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/tagPug"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/breed_pug"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tagHound"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:mcv_backgroundColor="@android:color/transparent"
-                    app:mcv_closable="false"
-                    app:mcv_cornerRadius="8dp"
-                    app:mcv_selectable="true"
-                    app:mcv_selectedBackgroundColor="@color/colorPrimary"
-                    app:mcv_selectedTextColor="@android:color/white"
-                    app:mcv_strokeSize="3dp"
-                    app:mcv_textColor="@color/colorPrimary" />
-
-                <com.robertlevonyan.views.chip.Chip
-                    android:id="@+id/tagLabrador"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="@string/breed_labrador"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tagPug"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:mcv_backgroundColor="@android:color/transparent"
-                    app:mcv_closable="false"
-                    app:mcv_cornerRadius="8dp"
-                    app:mcv_selectable="true"
-                    app:mcv_selectedBackgroundColor="@color/colorPrimary"
-                    app:mcv_selectedTextColor="@android:color/white"
-                    app:mcv_strokeSize="3dp"
-                    app:mcv_textColor="@color/colorPrimary" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </HorizontalScrollView>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <include layout="@layout/dog_list_layout"
-        android:layout_height="0dp"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagsCardView"/>
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/title_dog_breed_activity"
+            app:menu="@menu/top_app_bar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_dogs_activity"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
