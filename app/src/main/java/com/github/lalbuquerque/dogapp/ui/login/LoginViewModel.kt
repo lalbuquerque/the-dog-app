@@ -7,12 +7,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.lalbuquerque.dogapp.repository.LoginRepository
 import com.github.lalbuquerque.dogapp.R
+import com.github.lalbuquerque.dogapp.di.qualifiers.ObserveOn
+import com.github.lalbuquerque.dogapp.di.qualifiers.SubscribeOn
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository) :
+class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository,
+                                         @SubscribeOn private val subscribeOnScheduler: Scheduler,
+                                         @ObserveOn private val observeOnScheduler: Scheduler
+) :
     ViewModel() {
 
     private val _loginStatusLiveData = MutableLiveData<LoginStatus>()
@@ -45,8 +51,8 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
 
     fun login(email: String) {
         loginRepository.login(email)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(subscribeOnScheduler)
+            .observeOn(observeOnScheduler)
             .subscribeBy(
                 onNext = {
                     Log.i("viewmodel", it.toString())

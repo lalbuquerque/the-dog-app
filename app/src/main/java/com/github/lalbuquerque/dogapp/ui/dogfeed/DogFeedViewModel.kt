@@ -5,14 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.lalbuquerque.dogapp.R
 import com.github.lalbuquerque.dogapp.api.vo.DogImage
+import com.github.lalbuquerque.dogapp.di.qualifiers.ObserveOn
+import com.github.lalbuquerque.dogapp.di.qualifiers.SubscribeOn
 import com.github.lalbuquerque.dogapp.repository.DogFeedRepository
 import com.github.lalbuquerque.dogapp.ui.dogfeed.recyclerview.DogItem
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFeedRepository) :
+class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFeedRepository,
+                                           @SubscribeOn private val subscribeOnScheduler: Scheduler,
+                                           @ObserveOn private val observeOnScheduler: Scheduler) :
     ViewModel() {
 
     private val _dogCategorySelectionLiveData = MutableLiveData<DogCategorySelection>()
@@ -35,8 +40,8 @@ class DogFeedViewModel @Inject constructor(private val dogFeedRepository: DogFee
 
     private fun getDogFeed(category: DogCategory = DogCategory.ALL) {
         dogFeedRepository.retrieveDogFeed(category)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(subscribeOnScheduler)
+            .observeOn(observeOnScheduler)
             .subscribeBy(
                 onNext = {
                     _dogFeedRetrievalResultLiveData.value = DogFeedLoadResult(success = true,
