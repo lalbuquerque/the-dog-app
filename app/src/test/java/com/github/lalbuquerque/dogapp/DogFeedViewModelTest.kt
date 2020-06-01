@@ -57,7 +57,7 @@ class DogFeedViewModelTest {
 
         dogFeedViewModel!!.selectCategory(DogCategory.PUG)
 
-        assertEquals(dogFeedViewModel!!.dogCategorySelectionLiveData.value!!.selected, DogCategory.PUG)
+        assertEquals(DogCategory.PUG, dogFeedViewModel!!.dogCategorySelectionLiveData.value!!.selected)
     }
 
     @Test
@@ -67,7 +67,7 @@ class DogFeedViewModelTest {
 
         dogFeedViewModel!!.selectCategory(DogCategory.ALL)
 
-        assertEquals(dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.success, false)
+        assertEquals(false, dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.success)
         assertNotNull(dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.error)
     }
 
@@ -78,7 +78,7 @@ class DogFeedViewModelTest {
 
         dogFeedViewModel!!.selectCategory(DogCategory.ALL)
 
-        assertEquals(dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.success, true)
+        assertEquals(true, dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.success)
         assertNull(dogFeedViewModel!!.dogFeedLoadResultLiveData.value!!.error)
     }
 
