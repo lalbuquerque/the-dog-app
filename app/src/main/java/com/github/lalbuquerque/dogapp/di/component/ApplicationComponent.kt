@@ -23,7 +23,6 @@ interface ApplicationComponent {
 
     fun app(): Application
     fun context(): Context
-    fun preferences(): SharedPreferences
 
     fun inject(application: DogApplication)
     fun inject(loginActivity: LoginActivity)
