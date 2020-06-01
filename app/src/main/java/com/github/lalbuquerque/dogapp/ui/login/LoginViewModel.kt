@@ -1,7 +1,6 @@
 package com.github.lalbuquerque.dogapp.ui.login
 
-import android.util.Log
-import android.util.Patterns
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -54,7 +53,6 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
             .observeOn(observeOnScheduler)
             .subscribeBy(
                 onNext = {
-                    Log.i("viewmodel", it.toString())
                     _loginResultLiveData.value = LoginResult(success = true)
                 },
                 onError = {
@@ -72,7 +70,7 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
 
     private fun isEmailValid(email: String): Boolean {
         return if (email.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(email).matches()
+            PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
         } else {
             false
         }
