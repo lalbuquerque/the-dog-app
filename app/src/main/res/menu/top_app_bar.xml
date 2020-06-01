@@ -5,8 +5,8 @@
     <item
         android:id="@+id/favorite"
         android:icon="@android:drawable/ic_lock_power_off"
-        android:title="Logout"
-        android:contentDescription="Logout"
+        android:title="@string/logout"
+        android:contentDescription="@string/logout"
         app:showAsAction="ifRoom" />
 
 </menu>
