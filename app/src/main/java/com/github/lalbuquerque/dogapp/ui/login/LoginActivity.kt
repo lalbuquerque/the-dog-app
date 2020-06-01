@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginStatusLiveData.observe(this@LoginActivity, Observer {
             if (didLogout) {
                 didLogout = false
+                loginViewModel.logout()
                 return@Observer
             }
 

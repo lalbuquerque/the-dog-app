@@ -25,9 +25,9 @@ class LoginRepository @Inject constructor(private val dogApi: DogApi,
 
     fun login(email: String): Observable<User> {
         return Observable.defer {
-            val userEntity: UserEntity? = userDao.get()
+            userEntity = userDao.get()
             if (userEntity?.token?.isNotEmpty() == true) {
-                return@defer Observable.just(User(userEntity.email, userEntity.token))
+                return@defer Observable.just(User(userEntity!!.email, userEntity!!.token))
             } else {
                 return@defer dogApi.login(User(email = email))
                     .map { it.user }
@@ -41,6 +41,8 @@ class LoginRepository @Inject constructor(private val dogApi: DogApi,
     }
 
     fun logout() {
-        // TODO: implement
+        userDao.delete()
+        user = null
+        userEntity = null
     }
 }

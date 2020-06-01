@@ -67,7 +67,8 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
     }
 
     fun logout() {
-        // TODO: implement
+        loginRepository.logout()
+        _loginStatusLiveData.value = LoginStatus(loggedIn = false)
     }
 
     private fun isEmailValid(email: String): Boolean {
