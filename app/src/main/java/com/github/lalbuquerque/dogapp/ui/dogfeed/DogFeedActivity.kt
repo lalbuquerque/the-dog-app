@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.lalbuquerque.dogapp.DogApplication
 import com.github.lalbuquerque.dogapp.R
+import com.github.lalbuquerque.dogapp.extensions.enableAndSelectable
 import com.github.lalbuquerque.dogapp.ui.dogfeed.recyclerview.DogFeedAdapter
 import com.robertlevonyan.views.chip.OnSelectClickListener
 import kotlinx.android.synthetic.main.activity_dogs.*
@@ -106,27 +107,16 @@ class DogFeedActivity : AppCompatActivity() {
     }
 
     private fun setUpListeners() {
-        tagHusky.onSelectClickListener = OnSelectClickListener { v, selected ->
-            val category = if (selected) DogCategory.HUSKY else DogCategory.ALL
-            dogFeedViewModel.selectCategory(category)
-            resetRecyclerViewPositionControl()
-        }
+        tagHusky.onSelectClickListener = onSelectClickListenerFor(DogCategory.HUSKY)
+        tagHound.onSelectClickListener = onSelectClickListenerFor(DogCategory.HOUND)
+        tagPug.onSelectClickListener = onSelectClickListenerFor(DogCategory.PUG)
+        tagLabrador.onSelectClickListener = onSelectClickListenerFor(DogCategory.LABRADOR)
+    }
 
-        tagHound.onSelectClickListener = OnSelectClickListener { v, selected ->
-            val category = if (selected) DogCategory.HOUND else DogCategory.ALL
-            dogFeedViewModel.selectCategory(category)
-            resetRecyclerViewPositionControl()
-        }
-
-        tagPug.onSelectClickListener = OnSelectClickListener { v, selected ->
-            val category = if (selected) DogCategory.PUG else DogCategory.ALL
-            dogFeedViewModel.selectCategory(category)
-            resetRecyclerViewPositionControl()
-        }
-
-        tagLabrador.onSelectClickListener = OnSelectClickListener { v, selected ->
-            val category = if (selected) DogCategory.LABRADOR else DogCategory.ALL
-            dogFeedViewModel.selectCategory(category)
+    private fun onSelectClickListenerFor(category: DogCategory): OnSelectClickListener {
+        return OnSelectClickListener { v, selected ->
+            val selectedCategory = if (selected) category else DogCategory.ALL
+            dogFeedViewModel.selectCategory(selectedCategory)
             resetRecyclerViewPositionControl()
         }
     }
@@ -148,21 +138,13 @@ class DogFeedActivity : AppCompatActivity() {
         if (category != DogCategory.HOUND) tagHound.chipSelected = false
         if (category != DogCategory.PUG) tagPug.chipSelected = false
         if (category != DogCategory.LABRADOR) tagLabrador.chipSelected = false
-
     }
 
     private fun setAllCategoriesEnabled(allTagsUnselected: Boolean) {
-        tagHusky.isEnabled = true
-        tagHusky.selectable = true
-
-        tagHound.isEnabled = true
-        tagHound.selectable = true
-
-        tagPug.isEnabled = true
-        tagPug.selectable = true
-
-        tagLabrador.isEnabled = true
-        tagLabrador.selectable = true
+        tagHusky.enableAndSelectable()
+        tagHound.enableAndSelectable()
+        tagPug.enableAndSelectable()
+        tagLabrador.enableAndSelectable()
 
         if (allTagsUnselected) {
             tagHusky.chipSelected = false
