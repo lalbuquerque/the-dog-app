@@ -19,7 +19,6 @@ class DogFeedRepository @Inject constructor(private val dogApi: DogApi,
         }
 
         return getApiObservableForCategory(category, token)
-            .concatWith(getApiObservableForCategory(category, token))
     }
 
     private fun retrieveAllDogBreed(token: String): Observable<List<DogImage>> {
