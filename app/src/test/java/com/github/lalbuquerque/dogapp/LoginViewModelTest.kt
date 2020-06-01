@@ -3,7 +3,6 @@ package com.github.lalbuquerque.dogapp
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.github.lalbuquerque.dogapp.api.vo.User
 import com.github.lalbuquerque.dogapp.repository.LoginRepository
-import com.github.lalbuquerque.dogapp.ui.dogfeed.DogCategory
 import com.github.lalbuquerque.dogapp.ui.login.LoginViewModel
 import com.nhaarman.mockitokotlin2.*
 import io.reactivex.rxjava3.core.Observable
@@ -18,13 +17,13 @@ class LoginViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    var loginRepository: LoginRepository = mock()
+    var loginRepositoryMock: LoginRepository = mock()
     var loginViewModel: LoginViewModel? = null
 
     @Before
     fun setUpViewModel() {
         loginViewModel =
-            LoginViewModel(loginRepository, Schedulers.trampoline(), Schedulers.trampoline())
+            LoginViewModel(loginRepositoryMock, Schedulers.trampoline(), Schedulers.trampoline())
     }
 
     @Test
@@ -45,17 +44,17 @@ class LoginViewModelTest {
 
     @Test
     fun `given view called login() then viewmodel should call repository login()`() {
-        whenever(loginRepository.login(any()))
+        whenever(loginRepositoryMock.login(any()))
             .thenAnswer { Observable.just(User("")) }
 
         loginViewModel!!.login("")
 
-        verify(loginRepository).login(any())
+        verify(loginRepositoryMock).login(any())
     }
 
     @Test
     fun `given view called login() with an email then viewmodel should call repository login() with same email`() {
-        whenever(loginRepository.login(any()))
+        whenever(loginRepositoryMock.login(any()))
             .thenAnswer { Observable.just(User("")) }
 
         val email = "a@b.com"
@@ -63,14 +62,14 @@ class LoginViewModelTest {
         loginViewModel!!.login(email)
 
         val emailArgumentCaptor = argumentCaptor<String>()
-        verify(loginRepository).login(emailArgumentCaptor.capture())
+        verify(loginRepositoryMock).login(emailArgumentCaptor.capture())
 
         assertEquals(email, emailArgumentCaptor.firstValue)
     }
 
     @Test
     fun `given repository emits error on login() then loginResultLiveData should indicate error`() {
-        whenever(loginRepository.login(any()))
+        whenever(loginRepositoryMock.login(any()))
             .thenAnswer { Observable.error<User>(Throwable("")) }
 
         loginViewModel!!.login("")
@@ -81,7 +80,7 @@ class LoginViewModelTest {
 
     @Test
     fun `given repository emits valid data on login() then loginResultLiveData should indicate success`() {
-        whenever(loginRepository.login(any()))
+        whenever(loginRepositoryMock.login(any()))
             .thenAnswer { Observable.just(User("")) }
 
         loginViewModel!!.login("a@b.com")
@@ -92,9 +91,9 @@ class LoginViewModelTest {
 
     @Test
     fun `given respository isLoggedIn is true then loginStatusLiveData should indicate the same`() {
-        whenever(loginRepository.isLoggedIn).thenAnswer { true }
+        whenever(loginRepositoryMock.isLoggedIn).thenAnswer { true }
 
-        val loginViewModel = LoginViewModel(loginRepository, Schedulers.trampoline(), Schedulers.trampoline())
+        val loginViewModel = LoginViewModel(loginRepositoryMock, Schedulers.trampoline(), Schedulers.trampoline())
 
         assertEquals(true, loginViewModel.loginStatusLiveData.value!!.loggedIn)
     }
