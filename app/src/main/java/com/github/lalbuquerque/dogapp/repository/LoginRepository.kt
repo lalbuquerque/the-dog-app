@@ -1,14 +1,10 @@
 package com.github.lalbuquerque.dogapp.repository
 
-import android.os.Looper
 import com.github.lalbuquerque.dogapp.api.DogApi
 import com.github.lalbuquerque.dogapp.db.dao.UserDao
 import com.github.lalbuquerque.dogapp.db.entity.UserEntity
 import com.github.lalbuquerque.dogapp.api.vo.User
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LoginRepository @Inject constructor(private val dogApi: DogApi,

@@ -13,6 +13,4 @@ import com.github.lalbuquerque.dogapp.db.entity.UserEntity
 abstract class DogDb : RoomDatabase() {
 
     abstract fun userDao(): UserDao
-
-//    abstract fun repoDao(): RepoDao
 }
