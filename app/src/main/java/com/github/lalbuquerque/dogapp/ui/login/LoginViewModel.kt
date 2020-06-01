@@ -13,13 +13,13 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.io.IOException
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val loginRepository: LoginRepository,
                                          @SubscribeOn private val subscribeOnScheduler: Scheduler,
                                          @ObserveOn private val observeOnScheduler: Scheduler
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _loginStatusLiveData = MutableLiveData<LoginStatus>()
     val loginStatusLiveData: LiveData<LoginStatus>
@@ -59,8 +59,11 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
                     _loginResultLiveData.value = LoginResult(success = true)
                 },
                 onError = {
+                    val errorString =
+                        if (it is IOException) R.string.network_error else R.string.login_failed
+
                     _loginResultLiveData.value =
-                        LoginResult(error = R.string.login_failed)
+                        LoginResult(error = errorString)
                 },
                 onComplete = {}
             )
